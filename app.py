@@ -133,7 +133,7 @@ def admin_save():
             c.execute("""INSERT INTO attendance(date,roll,status) VALUES(?,?,?)
                 ON CONFLICT(date,roll) DO UPDATE SET status=excluded.status""",(date,s["roll"],st))
     c.commit(); c.close()
-    return redirect(url_for("admin",class=cl,date=date))
+    return redirect(url_for("admin", **{"class": cl, "date": date}))
 
 @app.get("/api/students")
 def api_students():
