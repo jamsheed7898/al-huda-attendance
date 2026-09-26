@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}<main class="wrap">
+<div class="card"><div class="notice"><b>രക്ഷിതാക്കൾക്ക് കാണാൻ മാത്രം:</b> ഇവിടെ കുട്ടിയുടെ ഹാജർ പരിശോധിക്കാം. ഹാജർ മാറ്റാനോ രേഖപ്പെടുത്താനോ കഴിയില്ല.</div>
+<h2>👨‍👩‍👧 കുട്ടിയുടെ ഹാജർ</h2><form action="/parent" class="row">
+<select name="class" onchange="this.form.submit()"><option value="">Class</option>{% for c in classes %}<option value="{{c}}">{{c}}-ാം ക്ലാസ്</option>{% endfor %}</select>
+<select name="roll"><option value="">കുട്ടിയുടെ പേര്</option></select>
+<button>View</button></form></div>
+<div class="card login"><h2>🔐 ഉസ്താദ് ലോഗിൻ</h2><form method="post" action="/login" class="row"><input name="pin" type="password" placeholder="PIN" required><button>Login</button></form><div class="small" style="margin-top:8px">ക്ലാസ് PIN / Master PIN ആവശ്യമാണ്.</div></div></main>
+<script>
+document.querySelector('select[name=class]').addEventListener('change',async function(){
+ let r=await fetch('/api/students?class='+encodeURIComponent(this.value)),x=await r.json(),s=document.querySelector('select[name=roll]');
+ s.innerHTML='<option value="">കുട്ടിയുടെ പേര്</option>'+x.map(v=>`<option value="${v.roll}">${v.name}</option>`).join('');
+});
+</script>{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block body %}<main class="wrap"><div class="card">
+<div class="notice"><b>View Only</b> — ഈ പേജിൽ attendance edit ചെയ്യാൻ കഴിയില്ല.</div><h2>👨‍👩‍👧 Parent Attendance</h2>
+<form class="row" action="/parent"><select name="class" onchange="this.form.submit()"><option value="">Class</option>{% for c in classes %}<option value="{{c}}" {% if c==selected_class %}selected{% endif %}>{{c}}-ാം ക്ലാസ്</option>{% endfor %}</select>
+<select name="roll"><option value="">കുട്ടിയുടെ പേര്</option>{% for s in students %}<option value="{{s.roll}}" {% if s.roll==selected_roll %}selected{% endif %}>{{s.name}}</option>{% endfor %}</select><button>View</button></form></div>
+{% if student %}<div class="card"><h2>{{student.name}}</h2><div class="small">Class {{student.class}} • Roll {{student.roll}}</div>
+<table><tr><th>Date</th><th>Status</th></tr>{% for x in history %}<tr><td>{{x.date}}</td><td class="{{'p' if x.status=='P' else 'a' if x.status=='A' else 'l'}}">{{'Present' if x.status=='P' else 'Absent' if x.status=='A' else 'Leave'}}</td></tr>{% endfor %}</table></div>{% endif %}
+</main>{% endblock %}

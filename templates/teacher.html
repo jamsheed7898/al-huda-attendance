@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block body %}<main class="wrap"><div class="card"><div class="notice">🔐 <b>Class {{class_name}} Usthad</b> — ഈ ക്ലാസ്സിന്റെ attendance മാത്രം.</div>
+<form method="post" action="/teacher/save"><div class="row"><input type="date" name="date" value="{{date}}" required><button>Save Attendance</button><a href="/logout">Logout</a></div>
+<div class="table"><table><tr><th>Roll</th><th>Name</th><th>Status</th></tr>{% for s in students %}<tr><td>{{s.roll}}</td><td>{{s.name}}</td><td>
+<select name="status_{{s.roll}}"><option value="">Not marked</option><option value="P" {% if statuses.get(s.roll)=='P' %}selected{% endif %}>Present</option><option value="A" {% if statuses.get(s.roll)=='A' %}selected{% endif %}>Absent</option><option value="L" {% if statuses.get(s.roll)=='L' %}selected{% endif %}>Leave</option></select></td></tr>{% endfor %}</table></div></form></div></main>{% endblock %}
